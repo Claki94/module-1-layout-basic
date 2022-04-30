@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+// Variables
+$primary-font: 'Roboto', sans-serif;
+$font-size: 14px;
+$font-menu-color: white;
+
+$spacing-01: 8px;
+$spacing-02: 12px;
+$spacing-03: 16px;
+$spacing-04: 24px;
+
+$primary-color: #2c7f91;
+$secondary-color: darken($primary-color, 10);
+
+// Mixins
+@mixin display-flex($direction, $justify-content: initial) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify-content;
+}
+
+@mixin ul-common-style() {
+  list-style-type: none;
+  background-color: $primary-color;
+}
+
+@mixin a-common-style($color) {
+  color: $color;
+  text-decoration: none;
+}
+
+//Styles
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: $primary-font;
+  font-size: $font-size;
+}
+
+body {
+  @include display-flex(column);
+}
+
+.container {
+  @include display-flex(column);
+
+  header {
+    @include display-flex(column);
+
+    h2 {
+      margin: $spacing-02 $spacing-01;
+    }
+
+    nav {
+      @include display-flex(column);
+      margin: 0px $spacing-01;
+
+      ul {
+        @include display-flex(row);
+        @include ul-common-style();
+
+        @media screen and (max-width: 480px) {
+          flex-direction: column;
+        }
+
+        li {
+          @include display-flex(row);
+          flex: 1;
+          transition: background-color 0.5s;
+
+          &:hover {
+            background-color: $secondary-color;
+          }
+
+          a {
+            @include display-flex(row, center);
+            @include a-common-style($font-menu-color);
+            flex: 1;
+            padding: $spacing-02;
+          }
+        }
+      }
+    }
+  }
+}

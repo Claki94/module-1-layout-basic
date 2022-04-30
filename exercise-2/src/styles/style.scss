@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import "_theme-1";
+
+// Mixins
+@mixin box-common-style($size) {
+  width: $size;
+  height: $size * 0.8;
+  border: 1px solid grey;
+  font-weight: bold;
+  border-radius: $border-radius;
+}
+
+@mixin box-specific-style($color, $has-shadow) {
+  background-color: $color;
+
+  @if $has-shadow {
+    box-shadow: $box-shadow;
+  }
+}
+
+@mixin display-flex-center($direction) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+}
+
+// Style
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: $primary-font;
+  font-size: $font-size;
+}
+
+body {
+  @include display-flex-center(column);
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+
+  @include display-flex-center(column);
+  row-gap: $spacing-03;
+
+  .box {
+    @include display-flex-center(row); 
+    @include box-common-style(125px);
+  }
+
+  $box-colors: 1 $primary-color, 2 $important-color, 3 $warning-color, 4 inherit true;
+  @each $number, $color, $shadow in $box-colors {
+    .box-#{$number} {
+      @include box-specific-style($color, $shadow);
+    }
+  }
+
+  .p-secondary-font {
+    font-family: $secondary-font;
+  }
+}

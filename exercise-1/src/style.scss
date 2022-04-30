@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+// Variables
+$base-background-color: #34c937;
+$base-font-color: white;
+
+// Mixins
+@mixin darken-lighten-background($type, $amount) {
+  $color: black;
+
+  @if $type == darken {
+    $color: darken($base-background-color, $amount);
+  } @else if $type == lighten {
+    $color: lighten($base-background-color, $amount);
+  }
+
+  background-color: $color;
+  color: invert($color);
+}
+
+// Styles
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+
+.container-1 {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px;
+  gap: 10px;
+
+  .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 5px;
+    flex: 1;
+    border-radius: 5px;
+  }
+
+  .base-color {
+    background-color: $base-background-color;
+    flex-grow: 2;
+    color: $base-font-color;
+  }
+
+  @for $i from 1 through 4 {
+    .darken#{$i} {
+      @include darken-lighten-background(darken, $i * 10);
+    }
+
+    .lighten#{$i} {
+      @include darken-lighten-background(lighten, $i * 10);
+    }
+  }
+
+}

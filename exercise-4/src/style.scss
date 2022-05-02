@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+// Variables
+$primary-font: 'Roboto', sans-serif;
+$font-size: 14px;
+
+$spacing-01: 4px;
+$spacing-02: 8px;
+$spacing-03: 12px;
+$spacing-04: 16px;
+$spacing-05: 24px;
+
+$border-radius: 5px;
+
+$grey: rgb(235, 235, 235);
+$grey-lighten: lighten($grey, 20);
+$grey-darken: darken($grey, 20);
+$primary-color: rgb(5, 161, 46);
+$primary-color-lighten: lighten($primary-color, 20);
+
+// Mixins
+@mixin display-flex($direction, $justify-content-value, $align-items-value) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify-content-value;
+  align-items: $align-items-value;
+}
+
+@mixin display-grid($columns, $rows) {
+  display: grid;
+  grid-template-columns: $columns;
+  grid-template-rows: $rows;
+}
+
+// Style
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: $primary-font;
+  font-size: $font-size;
+}
+
+body {
+  background-color: $grey;
+}
+
+.container {
+  @include display-grid(repeat(auto-fit, minmax(250px, 1fr)), none);
+  gap: $spacing-03;
+  padding: $spacing-03;
+
+  .card {
+    @include display-grid(none, repeat(3, min-content));
+    background-color: $grey-lighten;
+    border: 1px solid $grey-darken;
+    border-radius: $border-radius;
+    gap: $spacing-03;
+
+    .card-header {
+      @include display-flex(row, initial, initial);
+      height: 200px;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .card-content {
+      @include display-grid(none, repeat(3, min-content));
+      gap: $spacing-05;
+      padding: $spacing-03;
+      
+      p {
+        line-height: $spacing-05;
+      }
+
+      p:last-child {
+        @include display-flex(row, flex-end, initial);
+        font-size: 1.1rem;
+        margin-top: $spacing-03;
+        gap: $spacing-01;
+
+        span:first-child {
+          font-weight: bold;
+        }
+
+        span:last-child {
+          color: $primary-color-lighten;
+        }
+      }
+    }
+
+    .card-footer {
+      @include display-flex(row, initial, initial);
+      padding: 0px $spacing-03 $spacing-03;
+      
+      button {
+        flex: 1;
+        padding: $spacing-03;
+        border: 1px solid $primary-color;
+        background-color: $primary-color-lighten;
+        border-radius: $border-radius;
+        color: $grey-lighten;
+        cursor: pointer;
+      }
+    }
+  }
+}
